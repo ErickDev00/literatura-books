@@ -3,6 +3,8 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "livros")
 public class Livro {
@@ -11,14 +13,29 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(length = 1000)
     private String titulo;
 
+    @Column(length = 10)
     private String idioma;
 
     private Double numDownloads;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
+    private List<Autor> autores;
 
+
+    // Construtor padrão
+    public Livro() {}
+
+
+    public List<Autor> getAutor() {
+        return autores;
+    }
+
+    public void setAutor(List<Autor> autores) {
+        this.autores = autores;
+    }
 
     public Long getId() {
         return id;

@@ -7,6 +7,10 @@ import jakarta.persistence.*;
 @Table(name = "autores")
 public class Autor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(unique = true)
     private String nome;
 
@@ -14,8 +18,32 @@ public class Autor {
 
     private Double anoFalecimento;
 
+    @ManyToOne
+    @JoinColumn(name = "livro_id") // chave estrangeira para o livro
+    private Livro livro;
+
+    public Autor() {}
+
+    public Autor(String nome) {
+        this.nome = nome;
+    }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
 
     public String getNome() {
         return nome;

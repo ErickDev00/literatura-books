@@ -10,13 +10,13 @@ public class DemoApplication {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		var context = SpringApplication.run(DemoApplication.class, args);
 
-		Principal principal = new Principal();
+		// pegar o bean do Spring
+		Principal principal = context.getBean(Principal.class);
 
 		// chama o menu
 		principal.menu();
-
 	}
 
 

@@ -1,16 +1,21 @@
 package com.example.demo.main;
 
 import com.example.demo.dto.LivroDTO;
+import com.example.demo.model.Autor;
 import com.example.demo.model.DadosLivros;
 import com.example.demo.model.Livro;
+import com.example.demo.repository.LivroRepository;
 import com.example.demo.service.ConsumoService;
 import com.example.demo.service.ConverteJsonClasse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class Principal {
 
         private Scanner entrada = new Scanner(System.in);
@@ -19,7 +24,11 @@ public class Principal {
         private ConsumoService consumo = new ConsumoService();
         private ConverteJsonClasse conversor = new ConverteJsonClasse();
 
-        public void menu(){
+    @Autowired
+    private LivroRepository livroRepository;
+
+
+    public void menu(){
             String menuPrincipal = """
                     Escolha o número da sua opção: 
                     1- Buscar livros pelo titulo.
@@ -99,6 +108,22 @@ public class Principal {
                             } else {
                                 livro.setNumDownloads(0.0);
                             }
+
+                            //convertendo autores
+                            List<Autor> autores = dto.autores().stream()
+                                    .map(a -> {
+                                        Autor autor = new Autor();
+                                        autor.setNome(a.nome());
+                                        autor.setLivro(livro); // associa ao livro
+                                        return autor;
+                                    })
+                                    .toList();
+
+                            livro.setAutor(autores);
+
+
+                            livroRepository.save(livro);
+
 
                             //exibindo o livro
                             System.out.println("Título: " + livro.getTitulo());
