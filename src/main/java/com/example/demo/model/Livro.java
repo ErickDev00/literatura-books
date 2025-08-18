@@ -20,8 +20,6 @@ public class Livro {
 
 
 
-
-
     public Long getId() {
         return id;
     }

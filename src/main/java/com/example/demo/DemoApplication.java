@@ -1,14 +1,23 @@
 package com.example.demo;
 
-import org.springframework.boot.CommandLineRunner;
+import com.example.demo.main.Principal;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DemoApplication {
 
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+
+		Principal principal = new Principal();
+
+		// chama o menu
+		principal.menu();
+
 	}
+
 
 }
