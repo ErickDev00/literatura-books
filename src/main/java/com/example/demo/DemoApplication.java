@@ -12,10 +12,10 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		var context = SpringApplication.run(DemoApplication.class, args);
 
-		// pegar o bean do Spring
+
 		Principal principal = context.getBean(Principal.class);
 
-		// chama o menu
+		//chama o menu
 		principal.menu();
 	}
 
